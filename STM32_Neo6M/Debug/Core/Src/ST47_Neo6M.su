@@ -1,6 +1,6 @@
-ST47_Neo6M.c:13:8:Convert	40	static
-ST47_Neo6M.c:28:6:GPS_Init	8	static
-ST47_Neo6M.c:34:6:GPS_Callback	8	static
-ST47_Neo6M.c:45:6:GPS_GetData	72	static
-ST47_Neo6M.c:62:8:GPS_GetLatitude	4	static
-ST47_Neo6M.c:67:8:GPS_GetLongtitude	4	static
+ST47_Neo6M.c:12:8:Convert	40	static
+ST47_Neo6M.c:27:6:GPS_Init	8	static
+ST47_Neo6M.c:33:6:GPS_Callback	8	static
+ST47_Neo6M.c:44:6:GPS_GetData	72	static
+ST47_Neo6M.c:63:8:GPS_GetLatitude	4	static
+ST47_Neo6M.c:68:8:GPS_GetLongtitude	4	static

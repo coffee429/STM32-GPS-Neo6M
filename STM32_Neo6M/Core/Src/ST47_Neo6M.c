@@ -7,7 +7,6 @@
 
 
 #include "ST47_Neo6M.h"
-extern UART_HandleTypeDef neo;
 GPS_Struct gps;
 
 double Convert(float degMin)
@@ -57,6 +56,8 @@ void GPS_GetData()
 		memset(gps.rx_buffer, 0, sizeof(gps.rx_buffer));
 		gps.rx_index = 0;
 	}
+	HAL_UART_Receive_IT(&neo, &gps.rx_tmp, 1);
+	HAL_UART_Transmit(&debug, gps.rx_buffer, sizeof(gps.rx_buffer), 2000);
 }
 
 double GPS_GetLatitude()

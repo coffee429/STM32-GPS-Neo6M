@@ -16,6 +16,8 @@
 
 #define neo huart1
 #define debug huart2
+extern UART_HandleTypeDef huart1;
+extern UART_HandleTypeDef huart2;
 
 typedef struct
 {
