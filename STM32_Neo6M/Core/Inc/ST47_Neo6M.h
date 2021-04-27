@@ -21,32 +21,19 @@ extern UART_HandleTypeDef huart2;
 
 typedef struct
 {
+	/* Header */
+
 	/* UTC Time */
-	uint8_t utc_hour;
-	uint8_t utc_min;
-	uint8_t utc_sec;
-	uint16_t utc_microsec;
+	char time[10];
 
 	/* Location */
-	float latitude_raw;
-	double latitude;
-	char  ns_indicator;
-	float longtitude_raw;
-	double longtitude;
-	char  ew_indicator;
+	char* latitude_str;
+	float latitude;
+	char*  ns_indicator;
+	char* longtitude_str;
+	float longtitude;
+	char*  ew_indicator;
 
-	/* Other */
-	char gps_quality_indicator;
-	uint8_t num_of_satellites;
-	float	hdop;
-	float	msl_altitude;
-	char	msl_units;
-	float	geoid_separation;
-	char	geoid_units;
-
-	uint16_t	age_of_diffCorr;
-	char		diff_ref_station_id[4];
-	char		checksum[2];
 }GPGGA_Struct;
 
 typedef struct
@@ -63,7 +50,7 @@ typedef struct
 
 void GPS_Init();
 void GPS_Callback();
-void GPS_GetData();
+void GPS_ProcessData();
 double Convert(float degMin);
 double GPS_GetLatitude();
 double GPS_GetLongtitude();
