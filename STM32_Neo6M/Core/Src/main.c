@@ -107,7 +107,6 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 	  GPS_GetData();
-	  HAL_Delay(100);
   }
   /* USER CODE END 3 */
 }

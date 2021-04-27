@@ -26,26 +26,26 @@ double Convert(float degMin)
 
 void GPS_Init()
 {
-	gps.rx_index = 0;
-	HAL_UART_Receive_IT(&neo, &gps.rx_tmp, 1);
+	gps.index = 0;
+	HAL_UART_Receive_IT(&neo, &gps.rx, 1);
 }
 
 void GPS_Callback()
 {
-	gps.process_time = HAL_GetTick();
-	if(gps.rx_index < sizeof(gps.rx_buffer))
+	if(gps.rx == '\n')
 	{
-		gps.rx_buffer[gps.rx_index] = gps.rx_tmp;
-		gps.rx_index ++;
+		gps.flag = true;
+		gps.index = 0;
 	}
-	HAL_UART_Receive_IT(&neo, &gps.rx_tmp, 1);
+	else gps.buffer[gps.index ++] = gps.rx;
+	HAL_UART_Receive_IT(&neo, &gps.rx, 1);
 }
 
 void GPS_GetData()
 {
-	if((HAL_GetTick() - gps.process_time > 50) && gps.rx_index > 0)
+	if(gps.flag == true)
 	{
-		char* response = strstr((char*)gps.rx_buffer, "$GPGGA");
+		char* response = strstr((char*)gps.buffer, "$GPGGA");
 		if(response != NULL)
 		{
 			memset(&gps.gpgga, 0, sizeof(gps.gpgga));
@@ -53,11 +53,9 @@ void GPS_GetData()
 			gps.gpgga.latitude = Convert(gps.gpgga.latitude_raw);
 			gps.gpgga.longtitude = Convert(gps.gpgga.longtitude_raw);
 		}
-		memset(gps.rx_buffer, 0, sizeof(gps.rx_buffer));
-		gps.rx_index = 0;
+		HAL_UART_Transmit(&debug, gps.buffer, sizeof(gps.buffer), 2000);
+		gps.flag = false;
 	}
-	HAL_UART_Receive_IT(&neo, &gps.rx_tmp, 1);
-	HAL_UART_Transmit(&debug, gps.rx_buffer, sizeof(gps.rx_buffer), 2000);
 }
 
 double GPS_GetLatitude()

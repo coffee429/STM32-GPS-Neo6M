@@ -61,8 +61,8 @@ all: main-build
 main-build: STM32_Neo6M.elf secondary-outputs
 
 # Tool invocations
-STM32_Neo6M.elf: $(OBJS) $(USER_OBJS) D:\Engineering\Lap_trinh\CubeIDE\STM32-GPS-Neo6M\STM32_Neo6M\STM32F103C8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "STM32_Neo6M.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"D:\Engineering\Lap_trinh\CubeIDE\STM32-GPS-Neo6M\STM32_Neo6M\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="STM32_Neo6M.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+STM32_Neo6M.elf: $(OBJS) $(USER_OBJS) C:\Users\tungv\Desktop\STM32-GPS-Neo6M\STM32_Neo6M\STM32F103C8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "STM32_Neo6M.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\tungv\Desktop\STM32-GPS-Neo6M\STM32_Neo6M\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="STM32_Neo6M.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

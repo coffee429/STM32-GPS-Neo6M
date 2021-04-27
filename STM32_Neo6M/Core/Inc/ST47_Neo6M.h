@@ -52,9 +52,9 @@ typedef struct
 typedef struct
 {
 	uint32_t process_time;
-	uint8_t rx_tmp;
-	uint8_t rx_index;
-	uint8_t rx_buffer[512];
+	uint8_t rx;
+	uint8_t index;
+	uint8_t buffer[40];
 	bool flag;
 
 	GPGGA_Struct gpgga;
