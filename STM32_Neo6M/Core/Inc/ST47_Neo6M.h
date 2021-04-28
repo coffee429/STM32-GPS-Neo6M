@@ -12,6 +12,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
 
 #define neo huart1
@@ -27,10 +28,8 @@ typedef struct
 	char time[10];
 
 	/* Location */
-	char* latitude_str;
 	float latitude;
 	char*  ns_indicator;
-	char* longtitude_str;
 	float longtitude;
 	char*  ew_indicator;
 
@@ -51,8 +50,8 @@ typedef struct
 void GPS_Init();
 void GPS_Callback();
 void GPS_ProcessData();
-double Convert(float degMin);
-double GPS_GetLatitude();
-double GPS_GetLongtitude();
+float Convert(float degMin);
+float GPS_GetLatitude();
+float GPS_GetLongtitude();
 
 #endif /* INC_ST47_NEO6M_H_ */

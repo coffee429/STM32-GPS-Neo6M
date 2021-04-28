@@ -63,6 +63,8 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
 	GPS_Callback();
 }
+double x;
+double y;
 /* USER CODE END 0 */
 
 /**
@@ -107,6 +109,8 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 	  GPS_ProcessData();
+	  x = GPS_GetLatitude();
+	  y = GPS_GetLongtitude();
   }
   /* USER CODE END 3 */
 }

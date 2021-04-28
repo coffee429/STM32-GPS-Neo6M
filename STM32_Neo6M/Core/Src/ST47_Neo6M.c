@@ -9,19 +9,13 @@
 #include "ST47_Neo6M.h"
 GPS_Struct gps;
 
-double Convert(float degMin)
+float Convert(float location)
 {
-	double min = 0.0;
-	double decDeg = 0.0;
-
-	//get the minutes, fmod() requires double
-	min = fmod((double)degMin, 100.0);
-
-	//rebuild coordinates in decimal degrees
-	degMin = (int) ( degMin / 100 );
-	decDeg = degMin + ( min / 60 );
-
-	return decDeg;
+	 float degrees = floor(location / 100);
+	 double minutes = location - (100 * degrees);
+	 minutes /= 60;
+	 degrees += minutes;
+	 return degrees;
 }
 
 void GPS_Init()
@@ -58,11 +52,13 @@ void GPS_Callback()
 //	}
 //}
 
-void GPS_ProcessData()
+void GPS_ProcessData(char* buffer)
 {
 	if(gps.flag == true)
 	{
-		char* response = strstr((char*)gps.buffer, "$GPGGA");
+		HAL_UART_Transmit(&debug, gps.buffer, sizeof(gps.buffer), 2000);
+		char* response = malloc(strlen(gps.buffer) + 1);
+		strcpy(response, gps.buffer);
 		if(response != NULL)
 		{
 			char* token = strtok(response, ",");
@@ -72,17 +68,17 @@ void GPS_ProcessData()
 			gps.gpgga.longtitude = atof(strtok(NULL, ","));
 			gps.gpgga.ew_indicator = strtok(NULL, ",");
 		}
-		HAL_UART_Transmit(&debug, gps.buffer, sizeof(gps.buffer), 2000);
+		free(response);
 		gps.flag = false;
 	}
 }
 
-double GPS_GetLatitude()
+float GPS_GetLatitude()
 {
-	return gps.gpgga.latitude;
+	return Convert(gps.gpgga.latitude);
 }
 
-double GPS_GetLongtitude()
+float GPS_GetLongtitude()
 {
-	return gps.gpgga.longtitude;
+	return Convert(gps.gpgga.longtitude);
 }
