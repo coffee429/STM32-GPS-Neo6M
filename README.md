@@ -12,5 +12,4 @@ Hardware: STM32F103C8T6.
 4. Change gps.buffer size. It might need bigger size than i define.
 5. Run project.
 6. Remember, module neo-6m may not get gps signal while you in house.
-If there is anything not right, contact my email for exchange ideas : tungvoson98@gmail.com.
 Hope you enjoy it :))
